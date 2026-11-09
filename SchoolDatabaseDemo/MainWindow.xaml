@@ -1,0 +1,78 @@
+﻿<Window x:Class="SchoolDatabaseDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Ученици – SQLite"
+        Height="620" Width="780"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Урок 11: база -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12">
+            <Button Content="Създай база" Click="CreateDatabaseButton_Click"
+                    Padding="12,6" Margin="0,0,8,0"/>
+            <Button Content="Провери база" Click="CheckDatabaseButton_Click"
+                    Padding="12,6"/>
+        </StackPanel>
+
+        <!-- Полета за ученик -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,12">
+            <StackPanel Margin="0,0,12,0">
+                <TextBlock Text="Име"/>
+                <TextBox x:Name="NameBox" Width="220"/>
+            </StackPanel>
+            <StackPanel Margin="0,0,12,0">
+                <TextBlock Text="Клас"/>
+                <TextBox x:Name="ClassBox" Width="100"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Среден успех"/>
+                <TextBox x:Name="GradeBox" Width="100"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- CRUD бутони -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,12">
+            <Button x:Name="AddButton" Content="Добави" Click="AddButton_Click"
+                    Padding="12,6" Margin="0,0,8,0"/>
+            <Button x:Name="UpdateButton" Content="Обнови" Click="UpdateButton_Click"
+                    Padding="12,6" Margin="0,0,8,0" IsEnabled="False"/>
+            <Button x:Name="DeleteButton" Content="Изтрий" Click="DeleteButton_Click"
+                    Padding="12,6" Margin="0,0,8,0" IsEnabled="False"/>
+            <Button Content="Изчисти полетата" Click="ClearButton_Click"
+                    Padding="12,6"/>
+        </StackPanel>
+
+        <!-- Търсене -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,0,0,8">
+            <TextBlock Text="Търсене по име:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+            <TextBox x:Name="SearchBox" Width="240" TextChanged="SearchBox_TextChanged"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="4" x:Name="StudentsGrid"
+                  AutoGenerateColumns="False" IsReadOnly="True"
+                  SelectionMode="Single" SelectionUnit="FullRow"
+                  SelectionChanged="StudentsGrid_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="60"/>
+                <DataGridTextColumn Header="Име" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Клас" Binding="{Binding ClassName}" Width="100"/>
+                <DataGridTextColumn Header="Среден успех"
+                                    Binding="{Binding AverageGrade, StringFormat=F2}"
+                                    Width="120"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="5" Margin="0,12,0,0">
+            <TextBlock x:Name="CountTextBlock" FontWeight="SemiBold"/>
+            <TextBlock x:Name="StatusTextBlock" TextWrapping="Wrap"/>
+        </StackPanel>
+    </Grid>
+</Window>
